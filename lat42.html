@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Age Cave | Tuti Susilawati</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ min-height:100vh;
+ display:grid;
+ place-items:center;
+ padding:20px;
+ background:linear-gradient(135deg,#164e63,#0f766e,#a7f3d0);
+ font-family:Arial,sans-serif;
+ color:#164e63;
+}
+
+.card{
+ background:#fff;
+ width:100%;
+ max-width:500px;
+ padding:28px;
+ border-radius:26px;
+ box-shadow:0 18px 45px #0002;
+}
+
+.emoji{
+ text-align:center;
+ font-size:53px;
+}
+
+.tag{
+ text-align:center;
+ color:#0d9488;
+ font-size:12px;
+ font-weight:bold;
+ letter-spacing:2px;
+}
+
+.identity{
+ margin:18px 0;
+ padding:12px;
+ background:#ccfbf1;
+ border-radius:12px;
+ text-align:center;
+ line-height:1.8;
+ color:#115e59;
+}
+
+.card h1{
+ text-align:center;
+ color:#0f766e;
+}
+
+.card p{
+ text-align:center;
+ line-height:1.6;
+ color:#64748b;
+}
+
+label{
+ display:block;
+ font-weight:bold;
+ margin:18px 0 8px;
+}
+
+input{
+ width:100%;
+ padding:13px;
+ border:1px solid #cbd5e1;
+ border-radius:12px;
+ font-size:17px;
+}
+
+.btn{
+ display:block;
+ text-align:center;
+ margin-top:17px;
+ padding:12px;
+ background:#0f766e;
+ color:#fff;
+ text-decoration:none;
+ border:0;
+ border-radius:12px;
+ font-weight:bold;
+ width:100%;
+ cursor:pointer;
+}
+
+.result{
+ margin-top:20px;
+ padding:20px;
+ border-radius:16px;
+ background:#ccfbf1;
+ text-align:center;
+ line-height:1.8;
+ color:#115e59;
+}
+
+.result b{
+ font-size:21px;
+}
+</style>
+</head>
+
+<body>
+
+<main class="card">
+
+ <div class="emoji">🦴🪨</div>
+
+ <div class="tag">MISSION 03 · AGE CAVE</div>
+
+ <h1>Kalkulator Usia</h1>
+
+ <div class="identity">
+  <b>Nama:</b> Tuti Susilawati<br>
+  <b>NIM:</b> 262302008
+ </div>
+
+ <p>
+  Berapa lama kamu sudah berpetualang
+  di dunia ini? Cari tahu di sini!
+ </p>
+
+ <label for="lahir">📅 Tanggal lahir</label>
+
+ <input type="date" id="lahir" value="2007-10-22">
+
+ <button class="btn" onclick="hitungUsia()">
+  🔎 Hitung Usia
+ </button>
+
+ <div class="result" id="hasil">
+  Pilih tanggal lahir untuk memulai misi.
+ </div>
+
+ <a class="btn" href="index.html">
+  🗺️ Kembali ke Peta
+ </a>
+
+</main>
+
+<script>
+function hitungUsia(){
+
+ const value=document.getElementById("lahir").value;
+ const out=document.getElementById("hasil");
+
+ if(!value){
+  out.textContent="Pilih tanggal lahir terlebih dahulu.";
+  return;
+ }
+
+ const [y,m,d]=value.split("-").map(Number);
+
+ const today=new Date();
+
+ const now=new Date(
+  today.getFullYear(),
+  today.getMonth(),
+  today.getDate()
+ );
+
+ const birth=new Date(y,m-1,d);
+
+ if(birth>now){
+  out.textContent="Tanggal lahir tidak boleh di masa depan!";
+  return;
+ }
+
+ let years=now.getFullYear()-y;
+ let months=now.getMonth()-(m-1);
+ let days=now.getDate()-d;
+
+ if(days<0){
+  months--;
+  days+=new Date(
+   now.getFullYear(),
+   now.getMonth(),
+   0
+  ).getDate();
+ }
+
+ if(months<0){
+  years--;
+  months+=12;
+ }
+
+ out.innerHTML=
+  "🎉 Usia petualanganmu:<br>"+
+  "<b>"+years+" tahun</b><br>"+
+  "<b>"+months+" bulan</b><br>"+
+  "<b>"+days+" hari</b><br>"+
+  "XP kehidupan terus bertambah!";
+}
+
+hitungUsia();
+</script>
+
+</body>
+</html>
