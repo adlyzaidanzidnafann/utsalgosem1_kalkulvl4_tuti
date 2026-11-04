@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade Lab | Tuti Susilawati</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:22px;background:linear-gradient(135deg,#581c87,#9333ea,#f5d0fe);font-family:Arial,sans-serif;color:#3b0764}
+.card{max-width:500px;margin:15px auto;background:#fff;padding:28px;border-radius:25px;box-shadow:0 15px 40px #0002}
+.emoji{text-align:center;font-size:53px}
+.tag{text-align:center;font-size:12px;letter-spacing:2px;color:#9333ea;font-weight:bold}
+h1{text-align:center;color:#7e22ce}
+p{text-align:center;line-height:1.6;color:#64748b}
+label{display:block;font-weight:bold;margin:15px 0 7px}
+input{width:100%;padding:13px;border:1px solid #d8b4fe;border-radius:12px;font-size:16px}
+button,.back{display:block;width:100%;border:0;border-radius:12px;background:#7e22ce;color:#fff;padding:13px;margin-top:15px;text-align:center;text-decoration:none;font-weight:bold;cursor:pointer}
+.result{display:none;margin-top:20px;padding:20px;border-radius:17px;text-align:center;line-height:1.7}
+.grade{font-size:65px;font-weight:900}
+.A{background:#d1fae5;color:#065f46}
+.B{background:#dbeafe;color:#1e40af}
+.C{background:#fef3c7;color:#92400e}
+.D{background:#ffedd5;color:#9a3412}
+.E{background:#fee2e2;color:#991b1b}
+.error{display:none;background:#fee2e2;color:#991b1b;padding:12px;border-radius:10px;margin-top:14px}
+.identity{text-align:center;background:#faf5ff;padding:12px;border-radius:12px;margin:15px 0;color:#581c87}
+</style>
+</head>
+<body>
+<main class="card">
+ <div class="emoji">🧪🧙‍♂️</div>
+ <div class="tag">MISSION 05 · GRADE LAB</div>
+ <h1>Laboratorium Nilai</h1>
+
+ <div class="identity">
+  <b>Nama: Tuti Susilawati</b><br>
+  <b>NIM: 262302008</b>
+ </div>
+
+ <p>Masukkan data pemain dan uji nilai akhir untuk menemukan huruf mutunya!</p>
+
+ <form id="formNilai">
+  <label for="nama">👤 Nama mahasiswa</label>
+  <input id="nama" type="text" placeholder="Masukkan nama" required>
+
+  <label for="nilai">📊 Nilai akhir (0–100)</label>
+  <input id="nilai" type="text" inputmode="decimal" placeholder="Contoh: 85.5" required>
+
+  <button type="submit">⚗️ Analisis Nilai</button>
+ </form>
+
+ <div id="error" class="error" role="alert"></div>
+
+ <div id="hasil" class="result" aria-live="polite">
+  <div>HURUF MUTU</div>
+  <div id="huruf" class="grade"></div>
+  <b id="namaHasil"></b>
+  <div id="keterangan"></div>
+ </div>
+
+ <a class="back" href="index.html">🗺️ Kembali ke Peta</a>
+</main>
+
+<script>
+const form=document.getElementById("formNilai");
+const output=document.getElementById("hasil");
+const error=document.getElementById("error");
+
+form.addEventListener("submit",function(e){
+ e.preventDefault();
+ output.style.display="none";
+ error.style.display="none";
+
+ const nama=document.getElementById("nama").value.trim();
+ const raw=document.getElementById("nilai").value.trim();
+
+ function gagal(msg){
+  error.textContent=msg;
+  error.style.display="block";
+ }
+
+ if(!nama){
+  gagal("Nama mahasiswa harus diisi.");
+  return;
+ }
+
+ if(!/^[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(raw)){
+  gagal("Nilai harus berupa angka, misalnya 85.5.");
+  return;
+ }
+
+ const nilai=Number(raw.replace(",","."));
+
+ if(!Number.isFinite(nilai)||nilai<0||nilai>100){
+  gagal("Nilai harus berada di antara 0 dan 100.");
+  return;
+ }
+
+ let huruf,keterangan;
+
+ if(nilai>=84.5){
+  huruf="A";keterangan="Sangat Baik 🌟";
+ }
+ else if(nilai>=74.5){
+  huruf="B";keterangan="Baik 🎉";
+ }
+ else if(nilai>=59.5){
+  huruf="C";keterangan="Cukup 👍";
+ }
+ else if(nilai>=49.5){
+  huruf="D";keterangan="Kurang 💪";
+ }
+ else{
+  huruf="E";keterangan="Perlu Perbaikan. Tetap semangat! 🚀";
+ }
+
+ output.className="result "+huruf;
+ output.style.display="block";
+
+ document.getElementById("huruf").textContent=huruf;
+ document.getElementById("namaHasil").textContent=nama;
+ document.getElementById("keterangan").textContent="Nilai: "+nilai+" · "+keterangan;
+});
+</script>
+</body>
+</html>
