@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Time Island | Tuti Susilawati</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ min-height:100vh;
+ display:grid;
+ place-items:center;
+ padding:20px;
+ background:linear-gradient(145deg,#172554,#4338ca,#a78bfa);
+ font-family:Arial,sans-serif;
+ color:#fff;
+}
+
+.card{
+ width:100%;
+ max-width:500px;
+ text-align:center;
+ background:#ffffff16;
+ border:1px solid #ffffff45;
+ border-radius:28px;
+ padding:30px 22px;
+ box-shadow:0 20px 50px #0002;
+}
+
+.emoji{font-size:55px}
+
+.tag{
+ letter-spacing:2px;
+ font-size:12px;
+ color:#ddd6fe;
+ font-weight:bold;
+}
+
+.identity{
+ margin:15px 0;
+ padding:12px;
+ background:#ffffff18;
+ border-radius:12px;
+ line-height:1.8;
+}
+
+.clock{
+ font-size:clamp(45px,12vw,70px);
+ font-weight:900;
+ margin:25px 0;
+ color:#fff;
+}
+
+.date{
+ font-size:17px;
+ line-height:1.7;
+}
+
+.tip{
+ margin:22px 0;
+ padding:15px;
+ border-radius:15px;
+ background:#ffffff18;
+ line-height:1.6;
+}
+
+.btn{
+ display:inline-block;
+ padding:12px 18px;
+ border-radius:12px;
+ background:#fef08a;
+ color:#422006;
+ font-weight:bold;
+ text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<main class="card">
+
+ <div class="emoji">🏝️⏳</div>
+
+ <div class="tag">MISSION 02 · TIME ISLAND</div>
+
+ <h1>Pulau Waktu</h1>
+
+ <div class="identity">
+  <b>Nama:</b> Tuti Susilawati<br>
+  <b>NIM:</b> 262302008
+ </div>
+
+ <p>
+  Waktu terus berjalan, petualang.
+  Jangan sampai tugasmu keduluan deadline! 😂
+ </p>
+
+ <div class="clock" id="jam">00:00:00</div>
+
+ <div class="date" id="tanggal">
+  Memuat tanggal...
+ </div>
+
+ <div class="tip">
+  💡 <b>Misi hari ini:</b><br>
+  Gunakan waktumu untuk belajar sedikit demi sedikit.
+  XP bertambah setiap kali kamu berusaha!
+ </div>
+
+ <a class="btn" href="index.html">
+  🗺️ Kembali ke Peta
+ </a>
+
+</main>
+
+<script>
+function tampilkanWaktu(){
+
+ const now = new Date();
+
+ document.getElementById("jam").textContent =
+  [now.getHours(),now.getMinutes(),now.getSeconds()]
+  .map(x=>String(x).padStart(2,"0"))
+  .join(":");
+
+ document.getElementById("tanggal").textContent =
+  now.toLocaleDateString("id-ID",{
+   weekday:"long",
+   day:"numeric",
+   month:"long",
+   year:"numeric"
+  });
+}
+
+tampilkanWaktu();
+
+setInterval(tampilkanWaktu,1000);
+</script>
+
+</body>
+</html>
